@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FrameCap – Web Screen Recorder</title>
+  <meta name="description" content="Record your screen, microphone and webcam in the browser. Recordings stay on your device.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2322d3ee'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23021017'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="m16 13 5.2 3.5a.5.5 0 0 0 .8-.4V7.9a.5.5 0 0 0-.8-.4L16 11"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></symbol>
+    <symbol id="i-mic-off" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M2 2l20 20"/></symbol>
+    <symbol id="i-record" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" stroke="none"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5Z" fill="currentColor"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7l10-5Z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></symbol>
+    <symbol id="i-library" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 6h8M18 6h2M4 12h2M12 12h8M4 18h10M20 18h0"/><circle cx="15" cy="6" r="2.2"/><circle cx="9" cy="12" r="2.2"/><circle cx="17" cy="18" r="2.2"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 21h16"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h7V3M8 21v-7h8v7"/></symbol>
+    <symbol id="i-snapshot" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/></symbol>
+    <symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></symbol>
+    <symbol id="i-square" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5"/></symbol>
+    <symbol id="i-logo" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="3"/><circle cx="12" cy="10.5" r="3" fill="currentColor" stroke="none"/><path d="M8 21h8"/></symbol>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo"><svg class="i" aria-hidden="true"><use href="#i-logo"/></svg></span>
+    <span class="brand-name">FrameCap</span>
+  </div>
+  <div class="status" id="status" data-state="idle" role="status" aria-live="polite">
+    <span class="dot" aria-hidden="true"></span><span id="statusText">Idle</span>
+  </div>
+  <nav class="top-actions" aria-label="Library and settings">
+    <button class="btn ghost" id="btnLibrary" title="Recordings library (L)">
+      <svg class="i" aria-hidden="true"><use href="#i-library"/></svg><span>Library</span><span class="count" id="libCount">0</span>
+    </button>
+    <button class="btn ghost" id="btnSettings" title="Settings (,)">
+      <svg class="i" aria-hidden="true"><use href="#i-settings"/></svg><span>Settings</span>
+    </button>
+  </nav>
+</header>
+
+<div class="banner" id="unsupported" role="alert" hidden></div>
+
+<main class="layout">
+  <section class="stage-col" aria-label="Recorder">
+    <div class="glass stage-wrap">
+      <div class="stage" id="stage">
+        <video id="screenVideo" muted playsinline autoplay></video>
+        <div class="stage-empty" id="stageEmpty">
+          <svg class="i big" aria-hidden="true"><use href="#i-monitor"/></svg>
+          <h1>Pick what to record</h1>
+          <p>Choose a screen, window or browser tab. Nothing is shared until you confirm in the browser dialog.</p>
+          <button class="btn primary" id="btnScreenEmpty"><svg class="i" aria-hidden="true"><use href="#i-monitor"/></svg>Select screen</button>
+        </div>
+        <div class="cam circle mirror" id="camOverlay" hidden tabindex="0" role="group" aria-label="Webcam overlay. Drag, or use arrow keys to move it.">
+          <video id="camVideo" muted playsinline autoplay></video>
+        </div>
+        <div class="rec-badge" id="recBadge" hidden><span class="dot" aria-hidden="true"></span><span id="recBadgeText">REC</span></div>
+      </div>
+      <div class="hud">
+        <div class="hud-item"><span class="hud-label">Time</span><span class="hud-value timer" id="timer">00:00</span></div>
+        <div class="hud-item"><span class="hud-label">Capture</span><span class="hud-value" id="hudRes">—</span></div>
+        <div class="hud-item"><span class="hud-label">Output</span><span class="hud-value" id="hudFormat">—</span></div>
+      </div>
+    </div>
+
+    <div class="glass controls" role="toolbar" aria-label="Recording controls">
+      <button class="ctl" id="btnScreen" title="Select screen (S)"><svg class="i" aria-hidden="true"><use href="#i-monitor"/></svg><span class="lbl">Screen</span></button>
+      <button class="ctl" id="btnCam" aria-pressed="false" title="Webcam (C)"><svg class="i" aria-hidden="true"><use href="#i-camera"/></svg><span class="lbl">Webcam</span></button>
+      <button class="ctl" id="btnMic" aria-pressed="false" title="Microphone (M)"><svg class="i" aria-hidden="true"><use href="#i-mic-off"/></svg><span class="lbl">Mic off</span></button>
+      <span class="sep" aria-hidden="true"></span>
+      <button class="ctl rec" id="btnRecord" title="Start / stop recording (R)" disabled><svg class="i" aria-hidden="true"><use href="#i-record"/></svg><span class="lbl">Record</span></button>
+      <button class="ctl" id="btnPause" title="Pause / resume (P)" disabled><svg class="i" aria-hidden="true"><use href="#i-pause"/></svg><span class="lbl">Pause</span></button>
+      <span class="sep" aria-hidden="true"></span>
+      <button class="ctl" id="btnStudio" aria-pressed="false" title="Studio mode: bake the webcam into the video (T)"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg><span class="lbl">Studio</span></button>
+    </div>
+  </section>
+
+  <aside class="side" aria-label="Audio and webcam options">
+    <section class="glass panel">
+      <h2>Audio</h2>
+      <label class="slider"><span>Microphone volume</span>
+        <input type="range" id="micVol" min="0" max="200" value="100"><output id="micVolOut">100%</output></label>
+      <canvas id="meter" class="meter" width="280" height="14" role="img" aria-label="Microphone level"></canvas>
+      <label class="slider"><span>System audio volume</span>
+        <input type="range" id="sysVol" min="0" max="200" value="100" disabled><output id="sysVolOut">100%</output></label>
+      <p class="hint" id="sysStatus">System audio: select a screen to check.</p>
+    </section>
+
+    <section class="glass panel">
+      <h2>Webcam overlay</h2>
+      <div class="seg" role="group" aria-label="Webcam shape">
+        <button class="seg-btn" id="shapeCircle" aria-pressed="true" disabled><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg>Circle</button>
+        <button class="seg-btn" id="shapeRect" aria-pressed="false" disabled><svg class="i" aria-hidden="true"><use href="#i-square"/></svg>Rectangle</button>
+      </div>
+      <label class="slider"><span>Size</span><input type="range" id="camSize" min="10" max="45" value="20" disabled><output id="camSizeOut">20%</output></label>
+      <div class="row">
+        <label class="check"><input type="checkbox" id="camMirror" checked disabled>Mirror</label>
+        <button class="btn sm" id="camToggleVisible" disabled><svg class="i" aria-hidden="true"><use href="#i-eye-off"/></svg><span>Hide</span></button>
+      </div>
+      <p class="hint">Drag the webcam on the preview to move it. Turn on <strong>Studio</strong> to include it in the saved video.</p>
+    </section>
+
+    <section class="glass panel">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li>Select a screen, window or tab.</li>
+        <li>Optional: turn on the mic and webcam.</li>
+        <li>Press Record. Press it again to stop.</li>
+        <li>Download or save the result to your library.</li>
+      </ol>
+    </section>
+  </aside>
+</main>
+
+<!-- Settings -->
+<dialog id="settingsDialog" class="dlg" aria-labelledby="settingsTitle">
+  <div class="dlg-head"><h2 id="settingsTitle">Settings</h2>
+    <button class="btn icon" data-close aria-label="Close settings"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+  <form class="form" id="settingsForm" onsubmit="return false">
+    <label>Resolution
+      <select id="setRes"><option value="720">720p (1280×720)</option><option value="1080">1080p (1920×1080)</option><option value="1440">1440p (2560×1440)</option><option value="source">Match the shared screen</option></select></label>
+    <label>Frame rate
+      <select id="setFps"><option value="30">30 FPS</option><option value="60">60 FPS (needs a fast computer)</option></select></label>
+    <label>Video bitrate
+      <select id="setVBr"><option value="2.5">2.5 Mbps – small files</option><option value="5">5 Mbps</option><option value="8">8 Mbps – balanced</option><option value="12">12 Mbps</option><option value="20">20 Mbps – best quality</option></select></label>
+    <label>Audio bitrate
+      <select id="setABr"><option value="64">64 kbps</option><option value="96">96 kbps</option><option value="128">128 kbps</option><option value="192">192 kbps</option><option value="256">256 kbps</option></select></label>
+    <label class="check"><input type="checkbox" id="setEcho">Echo cancellation (microphone)</label>
+    <label class="check"><input type="checkbox" id="setNoise">Noise suppression (microphone)</label>
+    <label>Default file name
+      <input type="text" id="setName" maxlength="80" autocomplete="off"></label>
+    <p class="hint" id="settingsLock" hidden>Resolution, frame rate and bitrates are locked while recording.</p>
+    <h3>Keyboard shortcuts</h3>
+    <dl class="keys">
+      <div><dt><kbd>R</kbd></dt><dd>Start / stop recording</dd></div>
+      <div><dt><kbd>P</kbd></dt><dd>Pause / resume</dd></div>
+      <div><dt><kbd>S</kbd></dt><dd>Select screen</dd></div>
+      <div><dt><kbd>C</kbd></dt><dd>Webcam on / off</dd></div>
+      <div><dt><kbd>M</kbd></dt><dd>Microphone on / off</dd></div>
+      <div><dt><kbd>T</kbd></dt><dd>Studio mode</dd></div>
+      <div><dt><kbd>L</kbd></dt><dd>Open library</dd></div>
+      <div><dt><kbd>,</kbd></dt><dd>Open settings</dd></div>
+    </dl>
+    <p class="hint">Shortcuts only work while this tab is focused. If you record another window, use the on-screen buttons or return to this tab.</p>
+    <div class="dlg-actions"><button class="btn" type="button" id="btnResetSettings">Reset to defaults</button><button class="btn primary" type="button" data-close>Done</button></div>
+  </form>
+</dialog>
+
+<!-- Library -->
+<dialog id="libraryDialog" class="dlg dlg-wide" aria-labelledby="libraryTitle">
+  <div class="dlg-head"><h2 id="libraryTitle">Recordings library</h2>
+    <button class="btn icon" data-close aria-label="Close library"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+  <p class="hint">Recordings are saved in this browser's local database (IndexedDB). They are not uploaded and are not synced to other devices or browsers. Clearing site data removes them.</p>
+  <p class="hint" id="storageInfo"></p>
+  <div class="lib-empty" id="libEmpty" hidden><svg class="i big" aria-hidden="true"><use href="#i-library"/></svg><p>No saved recordings yet. Record something, then choose <strong>Save to Library</strong>.</p></div>
+  <ul class="lib-grid" id="libList"></ul>
+</dialog>
+
+<!-- Preview / export -->
+<dialog id="previewDialog" class="dlg dlg-wide" aria-labelledby="previewTitle">
+  <div class="dlg-head"><h2 id="previewTitle">Preview</h2>
+    <button class="btn icon" id="btnPreviewX" aria-label="Close preview"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+  <video id="previewVideo" controls playsinline></video>
+  <dl class="meta">
+    <div><dt>Duration</dt><dd id="pvDuration">—</dd></div>
+    <div><dt>File size</dt><dd id="pvSize">—</dd></div>
+    <div><dt>Format</dt><dd id="pvFormat">—</dd></div>
+    <div><dt>Resolution</dt><dd id="pvRes">—</dd></div>
+  </dl>
+  <div class="dlg-actions">
+    <button class="btn primary" id="btnDownload"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg>Download</button>
+    <button class="btn" id="btnSave"><svg class="i" aria-hidden="true"><use href="#i-save"/></svg>Save to Library</button>
+    <button class="btn" id="btnSnapshot"><svg class="i" aria-hidden="true"><use href="#i-snapshot"/></svg>Capture Snapshot</button>
+    <button class="btn ghost" id="btnClosePreview">Close Preview</button>
+  </div>
+</dialog>
+
+<!-- Confirm / rename -->
+<dialog id="askDialog" class="dlg dlg-small" aria-labelledby="askTitle">
+  <form method="dialog" class="form">
+    <h2 id="askTitle"></h2>
+    <p id="askMessage" class="hint"></p>
+    <label id="askField" hidden>Name<input type="text" id="askInput" maxlength="80" required autocomplete="off"></label>
+    <div class="dlg-actions">
+      <button class="btn ghost" value="cancel" formnovalidate id="askCancel">Cancel</button>
+      <button class="btn primary" value="ok" id="askOk">OK</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
